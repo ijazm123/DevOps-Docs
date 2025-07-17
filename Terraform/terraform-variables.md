@@ -94,6 +94,18 @@ resource "azurerm_subnet" "example" {
 
 ### Structure
 A map where values are objects with multiple attributes.
+In the for expression for k, v in var.vms : k => v, k and v are:
+k = the key (VM name like "web-server", "db-server", "app-server")
+v = the value (the object containing size, location, os, disk_size)
+: k => v - This creates a new map where:
+
+The key remains the same (k)
+The value remains the same (v)
+
+k = key (the map key)
+v = value (the map value/object)
+
+if v.os == "linux" - This is a conditional filter that only includes items where the os field equals "linux"
 
 ### Access Method
 ```hcl
