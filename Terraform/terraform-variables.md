@@ -134,11 +134,26 @@ variable "vms" {
   }
 }
 
-# Usage with for_each
+# Linux VMs
 resource "azurerm_linux_virtual_machine" "linux_vms" {
   for_each = {
     for k, v in var.vms : k => v
     if v.os == "linux"
+  }
+  
+  name                = each.key
+  size                = each.value.size
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.example.name
+  
+  # ... other configuration
+}
+
+# Windows VMs
+resource "azurerm_windows_virtual_machine" "windows_vms" {
+  for_each = {
+    for k, v in var.vms : k => v
+    if v.os == "windows"
   }
   
   name                = each.key
